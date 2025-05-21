@@ -1,21 +1,21 @@
 {
-  "timeline_index": 29,
+  "timeline_index": 49,
   "planner": {
     "Team Leader": {
       "1": {
         "task_id": "1",
         "dependent_task_ids": [],
-        "instruction": "Research and compare Three.js vs Babylon.js for the Virtual Backlot Prototype, analyzing benefits, challenges, and feasibility of migration.",
+        "instruction": "Enhance the Virtual Backlot Prototype to specifically support uploading and rendering FBX files with proper material handling and animation support.",
         "task_type": "general",
         "code": "",
         "result": "",
         "is_success": false,
         "is_finished": true,
-        "assignee": "Bob",
-        "start_at": 1747852128.3852947,
-        "end_at": 1747852357.1862116
+        "assignee": "Alex",
+        "start_at": 1747854269.4429705,
+        "end_at": 1747854999.8997035
       },
-      "current_task_id": "2",
+      "current_task_id": "1",
       "2": {
         "task_id": "2",
         "dependent_task_ids": [
@@ -28,7 +28,8 @@
         "is_success": false,
         "is_finished": false,
         "assignee": "Alex",
-        "start_at": 1747852357.1862438
+        "start_at": 1747852357.1862438,
+        "end_at": 1747854269.4429631
       }
     }
   },
@@ -59,7 +60,27 @@
     "25": 1,
     "26": 0,
     "27": 1,
-    "29": 1
+    "29": 1,
+    "30": 1,
+    "31": 1,
+    "32": 1,
+    "33": 1,
+    "34": 1,
+    "35": 1,
+    "36": 1,
+    "37": 1,
+    "38": 1,
+    "39": 1,
+    "40": 1,
+    "41": 1,
+    "42": 1,
+    "43": 1,
+    "44": 1,
+    "45": 1,
+    "46": 1,
+    "47": 1,
+    "48": 1,
+    "49": 1
   },
   "preview_servers": {
     "92697250-9454-472c-9e03-4e69f8863c07": {
@@ -70,16 +91,7 @@
       "cmd": "cd /data/chats/em2p0/workspace/react_template && pnpm run dev",
       "timeline_index": 26,
       "status": "initializing",
-      "logs": [
-        "\n",
-        "\n",
-        "> react-template@0.0.0 dev /data/chats/em2p0/workspace/react_template\n",
-        "> vite\n",
-        "\n",
-        "\n",
-        "  VITE v5.4.19  ready in 451 ms\n",
-        "\n"
-      ]
+      "logs": []
     }
   },
   "deploy": {}

@@ -1,6 +1,10 @@
 import React, { useRef, useEffect, useState, forwardRef, useImperativeHandle } from 'react';
 import * as BABYLON from '@babylonjs/core';
 import '@babylonjs/loaders/glTF';
+import '@babylonjs/loaders/OBJ';
+import '@babylonjs/loaders/STL';
+// Import FBX loader with the correct path
+import '@babylonjs/loaders';
 import Loading from '../common/Loading';
 
 const BabylonJsRenderer = forwardRef(({ assetId, renderMode = 'realtime' }, ref) => {
@@ -94,6 +98,64 @@ const BabylonJsRenderer = forwardRef(({ assetId, renderMode = 'realtime' }, ref)
     };
   }, []);
 
+  // Helper function to load external model files
+  const loadExternalModel = async (url) => {
+    if (!sceneRef.current) return null;
+    
+    try {
+      setLoading(true);
+      setError(null);
+      
+      // Clear previous model
+      if (modelRef.current) {
+        modelRef.current.dispose();
+        modelRef.current = null;
+      }
+      
+      if (animationGroupRef.current) {
+        animationGroupRef.current.dispose();
+        animationGroupRef.current = null;
+      }
+      
+      // Extract file extension
+      const fileExtension = url.split('.').pop().toLowerCase();
+      console.log(`Loading external ${fileExtension.toUpperCase()} file: ${url}`);
+      
+      // Determine URL parts
+      const rootUrl = url.substring(0, url.lastIndexOf('/') + 1);
+      const filename = url.substring(url.lastIndexOf('/') + 1);
+      
+      let importResult;
+      
+      if (fileExtension === 'fbx') {
+        // Special options for FBX
+        const importOptions = {
+          animationStartMode: BABYLON.AnimationStartMode.NONE,
+          optimizeNormals: true,
+          optimizeVertices: true
+        };
+        
+        importResult = await BABYLON.SceneLoader.ImportMeshAsync(
+          "", rootUrl, filename, sceneRef.current, null, '.fbx', null, importOptions
+        );
+      } else {
+        importResult = await BABYLON.SceneLoader.ImportMeshAsync(
+          "", rootUrl, filename, sceneRef.current
+        );
+      }
+      
+      if (importResult.meshes.length === 0) {
+        throw new Error('Model loaded but contains no meshes');
+      }
+      
+      return importResult;
+    } catch (err) {
+      console.error('Error loading external model:', err);
+      setError(`Error loading 3D model: ${err.message}`);
+      return null;
+    }
+  };
+  
   // Load 3D model when assetId changes
   useEffect(() => {
     if (!assetId || !sceneRef.current || !cameraRef.current) return;
@@ -114,8 +176,66 @@ const BabylonJsRenderer = forwardRef(({ assetId, renderMode = 'realtime' }, ref)
           animationGroupRef.current = null;
         }
 
-        // Check if this is one of our actual 3D models
-        if (
+        // Check if this is a direct URL to a model file (like FBX)
+        if (assetId.includes('.fbx') || assetId.includes('.glb') || assetId.includes('.gltf') || 
+            assetId.includes('.obj') || assetId.includes('.stl')) {
+          // This is a direct URL to a model file
+          try {
+            const result = await loadExternalModel(assetId);
+            if (!result) {
+              throw new Error('Failed to load model');
+            }
+
+            // Get the root mesh
+            const rootMesh = result.meshes[0];
+            modelRef.current = rootMesh;
+            
+            // Handle animations if available
+            if (result.animationGroups && result.animationGroups.length > 0) {
+              console.log(`Model has ${result.animationGroups.length} animation groups`);
+              animationGroupRef.current = result.animationGroups[0];
+            }
+            
+            // Auto adjust scale for the model
+            const boundingInfo = rootMesh.getBoundingInfo();
+            const size = boundingInfo.boundingBox.extendSize.scale(2);
+            const maxDimension = Math.max(size.x, size.y, size.z);
+            
+            // Scale the model to a reasonable size
+            const targetSize = 5.0;
+            const scaleFactor = targetSize / maxDimension;
+            rootMesh.scaling = new BABYLON.Vector3(scaleFactor, scaleFactor, scaleFactor);
+            
+            // Position at center and ground level
+            const boundingBox = boundingInfo.boundingBox;
+            const offset = new BABYLON.Vector3(
+              (boundingBox.maximumWorld.x + boundingBox.minimumWorld.x) / 2,
+              boundingBox.minimumWorld.y,
+              (boundingBox.maximumWorld.z + boundingBox.minimumWorld.z) / 2
+            );
+            
+            rootMesh.position = new BABYLON.Vector3(-offset.x, -offset.y, -offset.z);
+            
+            // Reset camera position to view the model properly
+            cameraRef.current.radius = targetSize * 2;
+            cameraRef.current.alpha = -Math.PI / 2;
+            cameraRef.current.beta = Math.PI / 3;
+            cameraRef.current.setTarget(BABYLON.Vector3.Zero());
+            
+          } catch (err) {
+            console.error(`Error loading model ${assetId}:`, err);
+            setError(`Failed to load model: ${err.message}`);
+            
+            // Create a fallback shape
+            const sphere = BABYLON.MeshBuilder.CreateSphere('errorSphere', { diameter: 2 }, sceneRef.current);
+            const material = new BABYLON.StandardMaterial('errorMaterial', sceneRef.current);
+            material.diffuseColor = new BABYLON.Color3(1, 0, 0); // Red for error
+            sphere.material = material;
+            modelRef.current = sphere;
+          }
+        }
+        // Check if this is one of our predefined 3D models
+        else if (
           assetId === 'vehicle-bmw-i8' || 
           assetId === 'vehicle-bmw-x7' || 
           assetId === 'vehicle-rusty-car' || 
@@ -141,18 +261,51 @@ const BabylonJsRenderer = forwardRef(({ assetId, renderMode = 'realtime' }, ref)
             case 'prop-pirates-ship':
               modelPath = '/assets/models/catroonic_pirates_ship.glb';
               break;
+            // Allow custom asset URL when assetId is a URL path to a model file
+            // This handles direct URLs to FBX and other model formats
             default:
-              modelPath = '/assets/models/bmw_i8_liberty_walk.glb';
+              if (assetId.startsWith('http') || assetId.startsWith('/assets')) {
+                modelPath = assetId;
+              } else {
+                modelPath = '/assets/models/bmw_i8_liberty_walk.glb';
+              }
           }
           
           try {
             // Import the model using SceneLoader
-            const result = await BABYLON.SceneLoader.ImportMeshAsync(
-              "", 
-              modelPath.substring(0, modelPath.lastIndexOf('/') + 1), 
-              modelPath.substring(modelPath.lastIndexOf('/') + 1), 
-              sceneRef.current
-            );
+            // Check file extension to apply special handling for FBX files
+            const fileExtension = modelPath.split('.').pop().toLowerCase();
+            let result;
+            
+            if (fileExtension === 'fbx') {
+              console.log('Loading FBX file:', modelPath);
+              
+              // Special import options for FBX files
+              const importOptions = {
+                animationStartMode: BABYLON.AnimationStartMode.NONE, // We'll manually control animations
+                optimizeNormals: true,
+                optimizeVertices: true
+              };
+              
+              result = await BABYLON.SceneLoader.ImportMeshAsync(
+                "", 
+                modelPath.substring(0, modelPath.lastIndexOf('/') + 1), 
+                modelPath.substring(modelPath.lastIndexOf('/') + 1), 
+                sceneRef.current,
+                null,
+                '.fbx',
+                null,
+                importOptions
+              );
+              console.log('FBX model loaded successfully with', result.meshes.length, 'meshes');
+            } else {
+              result = await BABYLON.SceneLoader.ImportMeshAsync(
+                "", 
+                modelPath.substring(0, modelPath.lastIndexOf('/') + 1), 
+                modelPath.substring(modelPath.lastIndexOf('/') + 1), 
+                sceneRef.current
+              );
+            }
             
             // Get the root mesh and store it as the model
             const rootMesh = result.meshes[0];
@@ -187,8 +340,30 @@ const BabylonJsRenderer = forwardRef(({ assetId, renderMode = 'realtime' }, ref)
             
             // Handle animations if available
             if (result.animationGroups && result.animationGroups.length > 0) {
+              console.log(`Model has ${result.animationGroups.length} animation groups`);
               animationGroupRef.current = result.animationGroups[0];
               // Animations are paused by default, they'll be played via the playAnimation method
+            }
+            
+            // Special handling for FBX animations
+            // Use the fileExtension we already have from the model loading logic
+            if (fileExtension === 'fbx' && result.skeletons && result.skeletons.length > 0) {
+              const skeleton = result.skeletons[0];
+              if (skeleton.animations && skeleton.animations.length > 0) {
+                console.log(`FBX model has ${skeleton.animations.length} skeleton animations`);
+                
+                // Create animation group from skeleton animations if needed
+                if (!animationGroupRef.current && skeleton.animations.length > 0) {
+                  const animGroup = new BABYLON.AnimationGroup('fbxAnimation', sceneRef.current);
+                  
+                  // Add all animations from the skeleton to the animation group
+                  skeleton.animations.forEach(animation => {
+                    animGroup.addTargetedAnimation(animation, skeleton);
+                  });
+                  
+                  animationGroupRef.current = animGroup;
+                }
+              }
             }
             
             // Clear existing lights for better model visualization
