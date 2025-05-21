@@ -1,12 +1,25 @@
 import React, { useRef, useEffect, useState, forwardRef, useImperativeHandle } from 'react';
 import * as BABYLON from '@babylonjs/core';
+// First import the core loaders
 import '@babylonjs/loaders/glTF';
 import '@babylonjs/loaders/OBJ';
 import '@babylonjs/loaders/STL';
-// Import FBX loader with the correct path
+// Import all loaders (includes FBX loader)
 import '@babylonjs/loaders';
-import '@babylonjs/loaders/FBX';
 import Loading from '../common/Loading';
+
+// Force initialization of the Babylonjs loaders
+const initializeBabylonLoaders = () => {
+  // Ensure all loaders are properly initialized
+  if (BABYLON.SceneLoader) {
+    console.log('BabylonJS SceneLoader initialized');
+    const registeredPlugins = BABYLON.SceneLoader.GetRegisteredPlugins ? 
+      Object.keys(BABYLON.SceneLoader.GetRegisteredPlugins()) : [];
+    console.log('Initially registered loader plugins:', registeredPlugins);
+  }
+};
+
+initializeBabylonLoaders();
 
 const BabylonJsRenderer = forwardRef(({ assetId, renderMode = 'realtime' }, ref) => {
   const containerRef = useRef(null);
@@ -263,8 +276,9 @@ const BabylonJsRenderer = forwardRef(({ assetId, renderMode = 'realtime' }, ref)
               modelPath = '/assets/models/nagoya_downtown.glb';
               break;
             case 'environment-nyc-manhattan':
-              modelPath = '/assets/models/NewYork-City-Manhattan.fbx';
-              console.log('Loading NYC Manhattan FBX model from:', modelPath);
+              // Use the direct path to the uploaded FBX file instead of the assets folder
+              modelPath = '/data/chats/0qr5w/workspace/uploads/NewYork-City-Manhattan.fbx';
+              console.log('Loading NYC Manhattan FBX model from direct upload path:', modelPath);
               break;
             case 'prop-pirates-ship':
               modelPath = '/assets/models/catroonic_pirates_ship.glb';
@@ -288,11 +302,23 @@ const BabylonJsRenderer = forwardRef(({ assetId, renderMode = 'realtime' }, ref)
             if (fileExtension === 'fbx') {
               console.log('Loading FBX file:', modelPath);
               
-              // Special import options for FBX files
+              // Check if this is the NYC Manhattan model
+              const isManhattanModel = modelPath.includes('NewYork-City-Manhattan');
+              console.log('Is Manhattan model:', isManhattanModel);
+              
+              if (isManhattanModel) {
+                // Special handling for NYC Manhattan model
+                console.log('Applying special loading parameters for NYC Manhattan model');
+              }
+              
+              // Simplified options for better compatibility
               const importOptions = {
                 animationStartMode: 0, // NONE mode - We'll manually control animations
-                optimizeNormals: true,
-                optimizeVertices: true
+                optimizeNormals: false, // Disable optimizations that might cause issues
+                optimizeVertices: false,
+                importOnlyMeshes: true, // Focus on loading just the mesh data first
+                createInstances: false,  // Disable instancing for now
+                importMeshTransforms: true
               };
               
               const rootUrl = modelPath.substring(0, modelPath.lastIndexOf('/') + 1);
@@ -300,39 +326,114 @@ const BabylonJsRenderer = forwardRef(({ assetId, renderMode = 'realtime' }, ref)
               console.log(`Root URL: ${rootUrl}, File name: ${fileName}`);
               
               try {
-                console.log('Attempting to load FBX file with explicit parameters...');
-                // Register a plugin for FBX before loading
-                if (!BABYLON.SceneLoader.IsPluginForExtensionAvailable('.fbx')) {
-                  console.warn('FBX plugin not registered, trying to register it');
-                  // Force registration of FBX loader if needed
-                  BABYLON.SceneLoader.RegisterPlugin(new BABYLON.FBXFileLoader());
-                }
+                console.log('Direct loading of NYC Manhattan model...');
                 
-                // Verify the file exists with a fetch request
-                const response = await fetch(modelPath);
-                if (!response.ok) {
-                  throw new Error(`File not accessible: ${response.statusText}`);
-                } else {
-                  console.log(`File verified accessible with status: ${response.status}`);
-                }
-                
-                // Try with explicit loading parameters
-                result = await BABYLON.SceneLoader.ImportMeshAsync(
-                  "", 
-                  rootUrl, 
-                  fileName, 
-                  sceneRef.current,
-                  (evt) => {
-                    // Progress callback
-                    if (evt.lengthComputable) {
-                      const progress = evt.loaded / evt.total * 100;
-                      console.log(`FBX loading progress: ${progress.toFixed(2)}%`);
+                // Directly load the model - try multiple approaches in sequence
+                if (modelPath.includes('NewYork-City-Manhattan')) {
+                  // For NYC Manhattan model, try direct loading approaches
+                  console.log('Using special loading technique for NYC Manhattan');
+                  
+                  // Create a container node for the model
+                  const rootNode = new BABYLON.TransformNode('NYC_Manhattan_Root', sceneRef.current);
+                  
+                  try {
+                    // Approach 1: Direct SceneLoader.Append
+                    console.log('Attempting direct SceneLoader.Append method...');
+                    await new Promise((resolve, reject) => {
+                      BABYLON.SceneLoader.Append(
+                        rootUrl, 
+                        fileName, 
+                        sceneRef.current, 
+                        (scene) => {
+                          console.log('Append succeeded with scene objects:', scene.meshes.length);
+                          // Collect all loaded meshes
+                          const loadedMeshes = [];
+                          scene.meshes.forEach(mesh => {
+                            if (mesh.name !== 'NYC_Manhattan_Root') {
+                              mesh.parent = rootNode;
+                              loadedMeshes.push(mesh);
+                            }
+                          });
+                          
+                          result = {
+                            meshes: [rootNode, ...loadedMeshes],
+                            particleSystems: [],
+                            skeletons: [],
+                            animationGroups: []
+                          };
+                          resolve(result);
+                        },
+                        null,
+                        (scene, message, exception) => {
+                          console.error('Append failed:', message);
+                          reject(new Error(`Append failed: ${message}`));
+                        },
+                        '.fbx'
+                      );
+                    });
+                  } catch (appendError) {
+                    console.error('Error with Append approach:', appendError);
+                    
+                    // Approach 2: Try LoadAsync
+                    try {
+                      console.log('Trying SceneLoader.LoadAsync approach...');
+                      const loadedScene = await BABYLON.SceneLoader.LoadAsync(
+                        rootUrl,
+                        fileName,
+                        sceneRef.current.getEngine(),
+                        null,
+                        '.fbx'
+                      );
+                      
+                      // Transfer meshes from loaded scene to current scene
+                      console.log('LoadAsync succeeded, transferring meshes...');
+                      loadedScene.meshes.forEach(mesh => {
+                        mesh.parent = rootNode;
+                      });
+                      
+                      result = {
+                        meshes: [rootNode, ...loadedScene.meshes],
+                        particleSystems: [],
+                        skeletons: [],
+                        animationGroups: []
+                      };
+                      
+                    } catch (loadError) {
+                      console.error('Error with LoadAsync approach:', loadError);
+                      
+                      // Approach 3: Fall back to ImportMesh
+                      console.log('Trying ImportMesh as last resort...');
+                      result = await BABYLON.SceneLoader.ImportMeshAsync(
+                        '', 
+                        rootUrl, 
+                        fileName, 
+                        sceneRef.current,
+                        null,
+                        '.fbx',
+                        null,
+                        importOptions
+                      );
                     }
-                  },
-                  '.fbx',
-                  null,
-                  importOptions
-                );
+                  }
+                } else {
+                  // For other FBX models, use standard approach
+                  result = await BABYLON.SceneLoader.ImportMeshAsync(
+                    '', 
+                    rootUrl, 
+                    fileName, 
+                    sceneRef.current,
+                    (evt) => {
+                      // Progress callback
+                      if (evt.lengthComputable) {
+                        const progress = evt.loaded / evt.total * 100;
+                        console.log(`FBX loading progress: ${progress.toFixed(2)}%`);
+                      }
+                    },
+                    '.fbx',
+                    null,
+                    importOptions
+                  );
+                }
                 console.log('FBX model loaded successfully with', result.meshes.length, 'meshes');
               } catch (fbxError) {
                 console.error('Error loading FBX with standard method:', fbxError);
@@ -394,18 +495,23 @@ const BabylonJsRenderer = forwardRef(({ assetId, renderMode = 'realtime' }, ref)
                 rootMesh.position.y = -0.5;
                 break;
               case 'environment-nyc-manhattan':
-                // Adjust scaling for the new Manhattan FBX model
-                rootMesh.scaling = new BABYLON.Vector3(0.001, 0.001, 0.001); // Reduced scale to better fit view
-                rootMesh.position.y = -2.0; // Position lower to fit better in view
-                rootMesh.rotation.y = Math.PI; // Rotate for better viewing angle if needed
+                // Adjust scaling for the new Manhattan FBX model - try a larger scale for better visibility
+                rootMesh.scaling = new BABYLON.Vector3(0.05, 0.05, 0.05); // Increased scale for better visibility
+                rootMesh.position.y = 0; // Center the model vertically
                 
                 console.log('NYC Manhattan model loaded with meshes:', result.meshes.length);
-                console.log('Setting special camera position for NYC model');
                 
-                // Set camera position to properly view the city model
-                cameraRef.current.radius = 50; // Increased to view from further away
-                cameraRef.current.beta = Math.PI / 4; // Changed angle for top-down view
-                cameraRef.current.alpha = -Math.PI / 2;
+                // Display information about each mesh for debugging
+                result.meshes.forEach((mesh, index) => {
+                  if (mesh.name && mesh.name !== 'NYC_Manhattan_Root') {
+                    console.log(`Mesh ${index}: ${mesh.name}, vertices: ${mesh.getTotalVertices()}, faces: ${mesh.getTotalIndices()/3}`);
+                  }
+                });
+                
+                // Move camera to better position to view Manhattan
+                cameraRef.current.radius = 20; // Move closer 
+                cameraRef.current.beta = Math.PI / 3; // Less top-down angle
+                cameraRef.current.alpha = 0; // Different viewing angle
                 break;
               case 'prop-pirates-ship':
                 rootMesh.scaling = new BABYLON.Vector3(0.1, 0.1, 0.1);

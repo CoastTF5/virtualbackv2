@@ -216,7 +216,7 @@ class StorageService {
       ['urban', 'newyork', 'manhattan', 'city', 'photorealistic', 'skyline'],
       'FBX',
       false,
-      '/assets/models/NewYork-City-Manhattan.fbx' // actual model path
+      '/data/chats/0qr5w/workspace/uploads/NewYork-City-Manhattan.fbx' // direct path to uploaded file
     ));
     
     // Add Pirates Ship prop
@@ -425,8 +425,8 @@ class StorageService {
           return;
         }
         
-        // Special case for BMW i8 model with actual path
-        if (assetId === 'vehicle-bmw-i8') {
+        // Special cases for models with actual paths
+        if (assetId === 'vehicle-bmw-i8' || assetId === 'environment-nyc-manhattan') {
           resolve({
             modelUrl: asset.modelPath || '/assets/models/bmw_i8_liberty_walk.glb',
             previewImages: [
