@@ -240,6 +240,7 @@ const BabylonJsRenderer = forwardRef(({ assetId, renderMode = 'realtime' }, ref)
           assetId === 'vehicle-bmw-x7' || 
           assetId === 'vehicle-rusty-car' || 
           assetId === 'environment-nagoya' || 
+          assetId === 'environment-nyc-manhattan' ||
           assetId === 'prop-pirates-ship'
         ) {
           // Determine the correct model path based on asset ID
@@ -257,6 +258,9 @@ const BabylonJsRenderer = forwardRef(({ assetId, renderMode = 'realtime' }, ref)
               break;
             case 'environment-nagoya':
               modelPath = '/assets/models/nagoya_downtown.glb';
+              break;
+            case 'environment-nyc-manhattan':
+              modelPath = '/assets/models/NewYork-City-Manhattan.fbx';
               break;
             case 'prop-pirates-ship':
               modelPath = '/assets/models/catroonic_pirates_ship.glb';
@@ -328,6 +332,13 @@ const BabylonJsRenderer = forwardRef(({ assetId, renderMode = 'realtime' }, ref)
               case 'environment-nagoya':
                 rootMesh.scaling = new BABYLON.Vector3(0.1, 0.1, 0.1);
                 rootMesh.position.y = -0.5;
+                break;
+              case 'environment-nyc-manhattan':
+                rootMesh.scaling = new BABYLON.Vector3(0.01, 0.01, 0.01);
+                rootMesh.position.y = -0.5;
+                // Set camera position to properly view large city model
+                cameraRef.current.radius = 25;
+                cameraRef.current.beta = Math.PI / 4;
                 break;
               case 'prop-pirates-ship':
                 rootMesh.scaling = new BABYLON.Vector3(0.1, 0.1, 0.1);

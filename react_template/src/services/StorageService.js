@@ -79,6 +79,7 @@ class StorageService {
     // Generate environment assets
     const environments = [
       { title: 'Downtown NYC Pack', desc: 'Highly detailed New York City street environment' },
+      { title: 'New York City Manhattan', desc: 'Detailed 3D model of Manhattan with buildings and infrastructure' },
       { title: 'Futuristic City Skyline', desc: 'Cyberpunk-inspired cityscape with neon lights' },
       { title: 'Suburban Neighborhood', desc: 'Typical American suburb with residential houses' },
       { title: 'Historical London Streets', desc: 'Victorian era London streets and buildings' },
@@ -203,6 +204,19 @@ class StorageService {
       'GLB/GLTF',
       false,
       '/assets/models/nagoya_downtown.glb' // actual model path
+    ));
+    
+    // Add New York City Manhattan environment
+    assets.push(this.createAsset(
+      'environment-nyc-manhattan', 
+      'New York City Manhattan', 
+      'Detailed 3D model of Manhattan with buildings and infrastructure', 
+      'environments',
+      getPlaceholderImageUrl('environments', 'nyc-manhattan'),
+      ['urban', 'newyork', 'manhattan', 'city', 'photorealistic', 'skyline'],
+      'FBX',
+      false,
+      '/assets/models/NewYork-City-Manhattan.fbx' // actual model path
     ));
     
     // Add Pirates Ship prop

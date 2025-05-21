@@ -133,6 +133,10 @@ export const getPlaceholderImageUrl = (category, id) => {
     return `https://source.unsplash.com/300x200/?nagoya,japan,downtown,city`;
   }
   
+  if (id === 'environment-nyc-manhattan' || id === 'nyc-manhattan') {
+    return `https://source.unsplash.com/300x200/?newyork,manhattan,skyline,city`;
+  }
+  
   if (id === 'prop-pirates-ship' || id === 'pirates-ship') {
     return `https://source.unsplash.com/300x200/?pirate,ship,cartoon`;
   }
