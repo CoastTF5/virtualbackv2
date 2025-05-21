@@ -334,11 +334,13 @@ const BabylonJsRenderer = forwardRef(({ assetId, renderMode = 'realtime' }, ref)
                 rootMesh.position.y = -0.5;
                 break;
               case 'environment-nyc-manhattan':
-                rootMesh.scaling = new BABYLON.Vector3(0.01, 0.01, 0.01);
-                rootMesh.position.y = -0.5;
-                // Set camera position to properly view large city model
-                cameraRef.current.radius = 25;
-                cameraRef.current.beta = Math.PI / 4;
+                // Adjust scaling for the new Manhattan FBX model
+                rootMesh.scaling = new BABYLON.Vector3(0.005, 0.005, 0.005);
+                rootMesh.position.y = -1.0;
+                // Set camera position to properly view the city model
+                cameraRef.current.radius = 30;
+                cameraRef.current.beta = Math.PI / 3;
+                cameraRef.current.alpha = -Math.PI / 2;
                 break;
               case 'prop-pirates-ship':
                 rootMesh.scaling = new BABYLON.Vector3(0.1, 0.1, 0.1);
