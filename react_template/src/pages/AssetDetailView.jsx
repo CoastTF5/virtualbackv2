@@ -3,7 +3,7 @@ import { useParams, Link } from 'react-router-dom';
 import Button from '../components/common/Button';
 import Modal from '../components/common/Modal';
 import Loading from '../components/common/Loading';
-import ThreeJsRenderer from '../components/viewer/ThreeJsRenderer';
+import BabylonJsRenderer from '../components/viewer/BabylonJsRenderer';
 import CameraControls from '../components/viewer/CameraControls';
 import SnapshotControl from '../components/viewer/SnapshotControl';
 import { useAssetPreview } from '../hooks/useAssetPreview';
@@ -153,7 +153,7 @@ function AssetDetailView() {
       <div className="bg-white rounded-lg shadow-md overflow-hidden">
         {/* Viewer container */}
         <div className="relative">
-          <ThreeJsRenderer 
+          <BabylonJsRenderer 
             ref={viewerRef} 
             assetId={assetId} 
             renderMode={renderMode} 

@@ -1,21 +1,85 @@
 {
-  "timeline_index": 3,
-  "planner": {},
+  "timeline_index": 29,
+  "planner": {
+    "Team Leader": {
+      "1": {
+        "task_id": "1",
+        "dependent_task_ids": [],
+        "instruction": "Research and compare Three.js vs Babylon.js for the Virtual Backlot Prototype, analyzing benefits, challenges, and feasibility of migration.",
+        "task_type": "general",
+        "code": "",
+        "result": "",
+        "is_success": false,
+        "is_finished": true,
+        "assignee": "Bob",
+        "start_at": 1747852128.3852947,
+        "end_at": 1747852357.1862116
+      },
+      "current_task_id": "2",
+      "2": {
+        "task_id": "2",
+        "dependent_task_ids": [
+          "1"
+        ],
+        "instruction": "Refactor the Virtual Backlot Prototype by replacing Three.js with Babylon.js to improve functionality and add additional features based on Bob's architecture recommendations.",
+        "task_type": "general",
+        "code": "",
+        "result": "",
+        "is_success": false,
+        "is_finished": false,
+        "assignee": "Alex",
+        "start_at": 1747852357.1862438
+      }
+    }
+  },
   "gallery_last_file": {},
   "timeline_status": {
-    "2": 0,
-    "3": 1
+    "2": 1,
+    "3": 1,
+    "4": 1,
+    "5": 1,
+    "6": 1,
+    "7": 1,
+    "8": 1,
+    "9": 1,
+    "10": 1,
+    "11": 1,
+    "12": 1,
+    "13": 1,
+    "14": 1,
+    "15": 1,
+    "16": 1,
+    "17": 1,
+    "18": 1,
+    "19": 1,
+    "20": 1,
+    "22": 1,
+    "23": 1,
+    "24": 1,
+    "25": 1,
+    "26": 0,
+    "27": 1,
+    "29": 1
   },
   "preview_servers": {
-    "491134e5-ddbd-4b35-b1c7-b17a81607e9b": {
+    "92697250-9454-472c-9e03-4e69f8863c07": {
       "role": "Alex",
-      "port": 5175,
-      "subdomain": "virtual-backlot-etlxwd-em2p0-607e9b",
-      "server": "e88e024e-b2f0-498d-8aab-7a23c0bf78e9",
-      "cmd": "cd /data/chats/em2p0/workspace/react_template && pnpm i && pnpm run dev",
-      "timeline_index": 2,
-      "status": "success",
-      "logs": []
+      "port": 5173,
+      "subdomain": "virtual-backlot-etlxwd-em2p0-863c07",
+      "server": "0ad2dec3-7e21-46c7-acfc-6b399934771a",
+      "cmd": "cd /data/chats/em2p0/workspace/react_template && pnpm run dev",
+      "timeline_index": 26,
+      "status": "initializing",
+      "logs": [
+        "\n",
+        "\n",
+        "> react-template@0.0.0 dev /data/chats/em2p0/workspace/react_template\n",
+        "> vite\n",
+        "\n",
+        "\n",
+        "  VITE v5.4.19  ready in 451 ms\n",
+        "\n"
+      ]
     }
   },
   "deploy": {}
