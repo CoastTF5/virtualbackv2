@@ -6,7 +6,7 @@ sequenceDiagram
     participant FilterPanel
     participant AssetDetailView
     participant AssetPreview
-    participant ThreeJsRenderer
+    participant BabylonJsRenderer
     participant MoodBoardEditor
     participant SnapshotManager
     participant DownloadManager
@@ -37,18 +37,18 @@ sequenceDiagram
     AssetDetailView->>AssetPreview: initPreview(packId)
     AssetPreview->>StorageService: getAssetPreviewData(packId)
     StorageService-->>AssetPreview: return preview data
-    AssetPreview->>ThreeJsRenderer: initialize(previewData)
-    ThreeJsRenderer-->>AssetPreview: viewer ready
+    AssetPreview->>BabylonJsRenderer: initialize(previewData)
+    BabylonJsRenderer-->>AssetPreview: viewer ready
     AssetDetailView->>AnalyticsService: logAssetView(packId)
 
     User->>AssetPreview: Select camera preset
-    AssetPreview->>ThreeJsRenderer: setCameraPosition(preset)
-    ThreeJsRenderer-->>AssetPreview: render updated view
+    AssetPreview->>BabylonJsRenderer: setCameraPosition(preset)
+    BabylonJsRenderer-->>AssetPreview: render updated view
 
     %% Snapshot Flow
     User->>AssetPreview: Click "Take Snapshot"
-    AssetPreview->>ThreeJsRenderer: captureViewport()
-    ThreeJsRenderer-->>AssetPreview: return image data
+    AssetPreview->>BabylonJsRenderer: captureViewport()
+    BabylonJsRenderer-->>AssetPreview: return image data
     AssetPreview->>SnapshotManager: createSnapshot(imageData, packId)
     SnapshotManager->>StorageService: saveSnapshot(imageData)
     StorageService-->>SnapshotManager: return snapshot URL

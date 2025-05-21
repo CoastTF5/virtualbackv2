@@ -200,7 +200,7 @@ The AI Wand MUST provide example queries to guide users, such as:
 ### 3.3 Pixel-Streaming Preview
 
 #### 3.3.1 3D Viewer
-The system MUST integrate a Three.js-based 3D model viewer with the following capabilities:
+The system MUST integrate a Babylon.js-based 3D model viewer with the following capabilities:
 - Real-time 3D model display
 - Asset rotation, zoom, and pan controls
 - Camera position presets (front, side, top, closeup)
@@ -315,7 +315,7 @@ The Virtual Backlot Prototype requires a modern web application architecture wit
 
 - **Front-end Framework**: React provides component-based architecture ideal for the modular UI elements needed across the application
 - **Styling**: Tailwind CSS enables rapid responsive UI development with consistent styling
-- **3D Rendering**: Three.js integration for browser-based 3D rendering without plugins
+ - **3D Rendering**: Babylon.js integration for browser-based 3D rendering without plugins
 - **State Management**: Context API for state management across components
 - **Routing**: React Router for navigation between different views
 - **Responsive Design**: Mobile-friendly interface using responsive design principles
