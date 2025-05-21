@@ -1,11 +1,11 @@
 {
-  "timeline_index": 97,
+  "timeline_index": 107,
   "planner": {
     "Team Leader": {
       "1": {
         "task_id": "1",
         "dependent_task_ids": [],
-        "instruction": "Add the NewYork-City-Manhattan.fbx model to the Virtual Backlot Prototype as a featured asset and make it available for viewing in the platform.",
+        "instruction": "Commit the latest code changes to GitHub for the Virtual Backlot Prototype project.",
         "task_type": "general",
         "code": "",
         "result": "",
@@ -13,7 +13,7 @@
         "is_finished": true,
         "assignee": "Alex",
         "start_at": 1747854269.4429705,
-        "end_at": 1747857117.698196
+        "end_at": 1747859720.5487792
       },
       "current_task_id": "1",
       "2": {
@@ -128,7 +128,17 @@
     "94": 1,
     "95": 1,
     "96": 1,
-    "97": 1
+    "97": 1,
+    "98": 1,
+    "99": 1,
+    "100": 1,
+    "101": 1,
+    "102": 1,
+    "103": 1,
+    "104": 1,
+    "105": 1,
+    "106": 1,
+    "107": 1
   },
   "preview_servers": {
     "92697250-9454-472c-9e03-4e69f8863c07": {
