@@ -19,9 +19,9 @@ function Loading({ text = 'Loading...', size = 'md' }) {
 
   return (
     <div className="flex flex-col items-center justify-center py-4">
-      <div className="animate-spin rounded-full border-t-2 border-b-2 border-blue-500 my-2">
-        <div className={`${spinnerSize}`}></div>
-      </div>
+      <div
+        className={`animate-spin rounded-full border-t-2 border-b-2 border-blue-500 my-2 ${spinnerSize}`}
+      />
       {text && <p className={`${textSize} text-gray-600 mt-2`}>{text}</p>}
     </div>
   );
