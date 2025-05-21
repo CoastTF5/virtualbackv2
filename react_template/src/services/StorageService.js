@@ -216,7 +216,7 @@ class StorageService {
       ['urban', 'newyork', 'manhattan', 'city', 'photorealistic', 'skyline'],
       'FBX',
       false,
-      '/data/chats/0qr5w/workspace/uploads/NewYork-City-Manhattan.fbx' // direct path to uploaded file
+      '/assets/models/NewYork-City-Manhattan.fbx' // actual model path
     ));
     
     // Add Pirates Ship prop

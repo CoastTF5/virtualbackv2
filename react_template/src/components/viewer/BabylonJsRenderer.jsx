@@ -276,9 +276,9 @@ const BabylonJsRenderer = forwardRef(({ assetId, renderMode = 'realtime' }, ref)
               modelPath = '/assets/models/nagoya_downtown.glb';
               break;
             case 'environment-nyc-manhattan':
-              // Use the direct path to the uploaded FBX file instead of the assets folder
-              modelPath = '/data/chats/0qr5w/workspace/uploads/NewYork-City-Manhattan.fbx';
-              console.log('Loading NYC Manhattan FBX model from direct upload path:', modelPath);
+              // Use the bundled Manhattan model
+              modelPath = '/assets/models/NewYork-City-Manhattan.fbx';
+              console.log('Loading NYC Manhattan FBX model from assets path:', modelPath);
               break;
             case 'prop-pirates-ship':
               modelPath = '/assets/models/catroonic_pirates_ship.glb';
