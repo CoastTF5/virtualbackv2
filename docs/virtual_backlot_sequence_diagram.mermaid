@@ -1,0 +1,94 @@
+sequenceDiagram
+    participant User
+    participant AppShell
+    participant LibraryView
+    participant SearchBar
+    participant FilterPanel
+    participant AssetDetailView
+    participant AssetPreview
+    participant ThreeJsRenderer
+    participant MoodBoardEditor
+    participant SnapshotManager
+    participant DownloadManager
+    participant AuthService
+    participant StorageService
+    participant AnalyticsService
+
+    %% Library View and Search Flow
+    User->>AppShell: Access application
+    AppShell->>LibraryView: Initialize library view
+    LibraryView->>StorageService: fetchFeaturedPacks()
+    StorageService-->>LibraryView: return featured packs
+    LibraryView->>LibraryView: Render pack grid
+
+    User->>SearchBar: Enter search query
+    SearchBar->>StorageService: search(query)
+    StorageService-->>SearchBar: return results
+    SearchBar-->>LibraryView: update with search results
+    
+    User->>FilterPanel: Apply category filter
+    FilterPanel->>StorageService: searchAssets(query, category)
+    StorageService-->>FilterPanel: return filtered assets
+    FilterPanel-->>LibraryView: update with filtered results
+
+    %% Asset Preview Flow
+    User->>LibraryView: Click on asset pack
+    LibraryView->>AssetDetailView: openAssetDetail(packId)
+    AssetDetailView->>AssetPreview: initPreview(packId)
+    AssetPreview->>StorageService: getAssetPreviewData(packId)
+    StorageService-->>AssetPreview: return preview data
+    AssetPreview->>ThreeJsRenderer: initialize(previewData)
+    ThreeJsRenderer-->>AssetPreview: viewer ready
+    AssetDetailView->>AnalyticsService: logAssetView(packId)
+
+    User->>AssetPreview: Select camera preset
+    AssetPreview->>ThreeJsRenderer: setCameraPosition(preset)
+    ThreeJsRenderer-->>AssetPreview: render updated view
+
+    %% Snapshot Flow
+    User->>AssetPreview: Click "Take Snapshot"
+    AssetPreview->>ThreeJsRenderer: captureViewport()
+    ThreeJsRenderer-->>AssetPreview: return image data
+    AssetPreview->>SnapshotManager: createSnapshot(imageData, packId)
+    SnapshotManager->>StorageService: saveSnapshot(imageData)
+    StorageService-->>SnapshotManager: return snapshot URL
+    SnapshotManager-->>AssetPreview: snapshot created
+
+    %% Mood Board Flow
+    User->>SnapshotManager: View snapshots
+    SnapshotManager->>StorageService: fetchUserSnapshots(userId)
+    StorageService-->>SnapshotManager: return snapshots
+    User->>MoodBoardEditor: Create mood board
+    MoodBoardEditor->>MoodBoardEditor: initialize canvas
+    User->>MoodBoardEditor: Add snapshots to board
+    MoodBoardEditor->>StorageService: persistMoodBoard(moodBoardData)
+    StorageService-->>MoodBoardEditor: return moodBoardId
+    User->>MoodBoardEditor: Share mood board
+    MoodBoardEditor->>StorageService: createShareableLink(moodBoardId)
+    StorageService-->>MoodBoardEditor: return shareUrl
+
+    %% Download Flow
+    User->>AssetDetailView: Click "Download"
+    AssetDetailView->>AuthService: checkUserAuthenticated()
+    AuthService-->>AssetDetailView: return auth status
+    alt Not Authenticated
+        AssetDetailView->>AuthService: initiateLogin()
+        AuthService-->>AssetDetailView: login complete
+    end
+    AssetDetailView->>AuthService: checkDownloadPermission(userId, packId)
+    AuthService-->>AssetDetailView: return permission status
+    alt Has Permission
+        AssetDetailView->>DownloadManager: initiateDownload(packId)
+        DownloadManager->>StorageService: getDownloadUrl(packId)
+        StorageService-->>DownloadManager: return download URL
+        DownloadManager->>DownloadManager: start download
+        DownloadManager->>AnalyticsService: logDownload(userId, packId)
+    else No Permission
+        AssetDetailView-->>User: Display permission error
+    end
+
+    %% Analytics Flow
+    User->>AnalyticsService: View analytics dashboard
+    AnalyticsService->>StorageService: fetchAnalyticsData(packId, dateRange)
+    StorageService-->>AnalyticsService: return analytics data
+    AnalyticsService-->>User: render charts

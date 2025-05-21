@@ -1,0 +1,102 @@
+{
+  "asset": {
+    "version": "2.0",
+    "generator": "Virtual Backlot Asset Generator"
+  },
+  "scene": 0,
+  "scenes": [
+    {
+      "nodes": [0]
+    }
+  ],
+  "nodes": [
+    {
+      "mesh": 0,
+      "name": "Office Furniture",
+      "translation": [0, 0.5, 0],
+      "scale": [0.8, 0.8, 0.8]
+    }
+  ],
+  "meshes": [
+    {
+      "primitives": [
+        {
+          "attributes": {
+            "POSITION": 0,
+            "NORMAL": 1,
+            "TEXCOORD_0": 2
+          },
+          "indices": 3,
+          "material": 0
+        }
+      ],
+      "name": "Prop"
+    }
+  ],
+  "materials": [
+    {
+      "name": "Wood Material",
+      "pbrMetallicRoughness": {
+        "baseColorFactor": [0.6, 0.3, 0.1, 1.0],
+        "metallicFactor": 0.0,
+        "roughnessFactor": 0.7
+      }
+    }
+  ],
+  "accessors": [
+    {
+      "bufferView": 0,
+      "componentType": 5126,
+      "count": 24,
+      "max": [1, 1, 1],
+      "min": [-1, 0, -1],
+      "type": "VEC3"
+    },
+    {
+      "bufferView": 1,
+      "componentType": 5126,
+      "count": 24,
+      "type": "VEC3"
+    },
+    {
+      "bufferView": 2,
+      "componentType": 5126,
+      "count": 24,
+      "type": "VEC2"
+    },
+    {
+      "bufferView": 3,
+      "componentType": 5123,
+      "count": 36,
+      "type": "SCALAR"
+    }
+  ],
+  "bufferViews": [
+    {
+      "buffer": 0,
+      "byteLength": 288,
+      "byteOffset": 0
+    },
+    {
+      "buffer": 0,
+      "byteLength": 288,
+      "byteOffset": 288
+    },
+    {
+      "buffer": 0,
+      "byteLength": 192,
+      "byteOffset": 576
+    },
+    {
+      "buffer": 0,
+      "byteLength": 72,
+      "byteOffset": 768
+    }
+  ],
+  "buffers": [
+    {
+      "byteLength": 840,
+      "uri": "data:application/octet-stream;base64,AACAvwAAAAAAAACAAACAvwAAAAAAAACAAACAvwAAAAAAAACAAACAvwAAAEAAAACAAACAvwAAAEAAAACAAACAvwAAAEAAAACAAACAvwAAgD8AAACAAACAvwAAgD8AAACAAACAvwAAgD8AAACAAACAvwAAgD8AAEBAAACAvwAAgD8AAEBAAACAvwAAgD8AAEBAAACAPwAAAAAAAACAAACAPwAAAAAAAACAAACAPwAAAAAAAACAAACAPwAAAEAAAACAAACAPwAAAEAAAACAAACAPwAAAEAAAACAAACAPwAAgD8AAACAAACAPwAAgD8AAACAAACAPwAAgD8AAACAAACAPwAAgD8AAEBAAACAPwAAgD8AAEBAAACAPwAAgD8AAEBAAAAAAAAAgL8AAAAAAAAAgL8AAAAAAAAAgL8AAAAAAAAAgL8AAAAAAAAAgL8AAAAAAAAAgL8AAAAAAACAPwAAAAAAAAAAAACAPwAAAAAAAAAAAACAPwAAAAAAAAAAAACAPwAAAAAAAAAAAACAPwAAAAAAAAAAAACAPwAAAAAAAAAAAAAAgL8AAAAAAAAAgL8AAAAAAAAAgL8AAAAAAAAAgL8AAAAAAAAAgL8AAAAAAAAAgL8AAAAAAACAPwAAAAAAAAAAAACAPwAAAAAAAAAAAACAPwAAAAAAAAAAAACAPwAAAAAAAAAAAACAPwAAAAAAAAAAAACAPwAAAAAAAAAAAACAPgAAgD4AAMA+AACAPgAAwD4AAIA+AACAPgAAgD4AAIA+AABAPwAAwD4AAEg/AADAPgAAQD8AAIA+AABAPwAAAD4AAIA+AACAPgAAAD4AAIA+AACAPgAAAD4AAIA+AACAPgAAgD8AAIA+AACAPwAAgD4AAIA/AACAPgAAgD8AACAPAAAgDwAAIA8AACAPAAAgDwAAIA8AACAPAAAgDwAAIA8AACAPAAAgDwAAIA8AAAEAAQACAAMABAAFAAUABgAHAAcABgAIAAkACAAKAAsADAANAA0ADgAPAA8AEAARABEAEgATABMAFAAVABUAFgAXAA=="
+    }
+  ]
+}

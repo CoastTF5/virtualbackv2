@@ -1,0 +1,128 @@
+classDiagram
+    class User {
+        +string id
+        +string name
+        +string email
+        +string role
+        +Array<string> permissions
+        +login() boolean
+        +logout() void
+        +hasPermission(permission) boolean
+    }
+
+    class AssetPack {
+        +string id
+        +string title
+        +string description
+        +string thumbnail
+        +string category
+        +string format
+        +Array<string> tags
+        +Date createdAt
+        +number viewCount
+        +number downloadCount
+        +number favoriteCount
+        +Object technicalSpecs
+        +getPreviewUrl() string
+        +getDownloadUrl() string
+        +incrementViewCount() void
+        +incrementDownloadCount() void
+        +toggleFavorite() boolean
+    }
+
+    class AssetPreview {
+        +string id
+        +string assetPackId
+        +Object viewerConfig
+        +Array~CameraPreset~ cameraPresets
+        +boolean isPlaying
+        +initViewer() void
+        +setCamera(preset) void
+        +togglePlayback() void
+        +takeSnapshot() Snapshot
+        +rotateCamera(x, y) void
+        +zoomCamera(level) void
+    }
+
+    class CameraPreset {
+        +string id
+        +string name
+        +Object position
+        +Object rotation
+        +number fieldOfView
+        +apply(viewer) void
+    }
+
+    class Snapshot {
+        +string id
+        +string assetPackId
+        +string imageUrl
+        +string title
+        +Date createdAt
+        +Object cameraPosition
+        +delete() boolean
+        +export() string
+    }
+
+    class MoodBoard {
+        +string id
+        +string title
+        +string description
+        +string creatorId
+        +Array~SnapshotItem~ items
+        +string shareUrl
+        +Date createdAt
+        +Date updatedAt
+        +addSnapshot(snapshot, position) boolean
+        +removeSnapshot(snapshotId) boolean
+        +updateLayout(layout) boolean
+        +generateShareLink() string
+    }
+
+    class SnapshotItem {
+        +string id
+        +Snapshot snapshot
+        +Object position
+        +number rotation
+        +number scale
+        +movePosition(x, y) void
+        +setRotation(angle) void
+        +setScale(scale) void
+    }
+
+    class AnalyticsManager {
+        +getPackAnalytics(packId, dateRange) PackAnalytics
+        +getUserAnalytics(userId, dateRange) UserAnalytics
+        +getGlobalAnalytics(dateRange) GlobalAnalytics
+    }
+
+    class SearchEngine {
+        +search(query, filters) Array~AssetPack~
+        +visualSearch(imageData) Array~AssetPack~
+        +getSuggestions(partialQuery) Array~string~
+    }
+
+    class StorageService {
+        +uploadSnapshot(data) string
+        +downloadAsset(assetId) boolean
+        +getAssetMetadata(assetId) Object
+    }
+
+    class AuthService {
+        +login(provider) User
+        +logout() void
+        +getCurrentUser() User
+        +checkPermission(permission) boolean
+    }
+
+    User "1" -- "*" Snapshot : creates
+    User "1" -- "*" MoodBoard : owns
+    AssetPack "1" -- "1" AssetPreview : has
+    AssetPack "1" -- "*" Snapshot : generates
+    AssetPreview "1" -- "*" CameraPreset : contains
+    MoodBoard "1" -- "*" SnapshotItem : contains
+    SnapshotItem "1" -- "1" Snapshot : references
+    User -- AuthService : authenticates via
+    AssetPack -- StorageService : stored via
+    AssetPack -- SearchEngine : indexed by
+    AssetPack -- AnalyticsManager : tracked by

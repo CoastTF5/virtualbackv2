@@ -1,0 +1,120 @@
+{
+  "roles": {
+    "Mike": {
+      "rc": {
+        "memory": {
+          "storage": [
+            {
+              "id": "137142e78e9d40e790b083a11bd200c7",
+              "content": "# Project Summary\nThe Virtual Backlot Prototype is a web-based application designed to enhance the creative workflow for film and media professionals. It serves as a unified platform for managing themed packs while integrating AI-driven tools for advanced search, discovery, and visualization. Key features include real-time pixel-streaming previews, mood boards, and analytics dashboards, all built with modern technologies like React, JavaScript, and Tailwind CSS. The project aims to empower creatives by streamlining project management and boosting productivity through essential tools.\n\n# Project Module Description\nThe project comprises several functional modules:\n- **Unified Library View**: Displays themed packs for easy access.\n- **Search & Discovery**: Features an AI Wand for advanced searching capabilities.\n- **Pixel-Streaming Preview**: Provides 3D viewport controls for real-time previews.\n- **Snapshot & Mood-Board**: Enables users to create and manage mood boards.\n- **Download Portal**: Offers secure download options for assets.\n- **Analytics Dashboard**: Visualizes data and user interactions.\n- **Dark Theme Implementation**: Enhances the user interface with improved dark mode functionality.\n- **3D Asset Management**: Utilizes photorealistic 3D assets for enhanced visual quality.\n\n# Directory Tree\n```\ndocs/                     # Documentation files\nreact_template/           # React application source code\npublic/                   # Public assets including models and images\n```\n\n# File Description Inventory\n- **docs/**: Contains design documents and specifications for the project.\n- **react_template/**: The main directory for the React application, including components, services, pages, and configuration files.\n- **public/**: Contains public assets like images and 3D models, including newly integrated assets.\n- **react_template/src/index.css**: Updated styles for improved UX in dark mode.\n- **react_template/src/services/StorageService.js**: Manages the storage and retrieval of asset models, including new 3D assets.\n- **react_template/src/data/mockData.js**: Contains mock data, including updated thumbnail references for new models.\n- **react_template/src/components/viewer/ThreeJsRenderer.jsx**: Renders 3D models, now updated to handle new assets.\n\n# Technology Stack\n- **Frontend**: React, JavaScript, Tailwind CSS\n- **Backend**: Decision pending between Supabase and localStorage for user authentication and data storage.\n\n# Usage\nTo set up the project, follow these steps:\n1. Navigate to the `react_template` directory.\n2. Install dependencies using the package manager.\n3. Build the project to prepare for development.\n4. Run the application.\n\n\n\n\n# INSTRUCTION\n- You can search for the file path in the `/data/chats/em2p0/workspace/`\n- After modifying the project files, if this project can be previewed, then you need to reinstall dependencies, restart service and preview;\n\n\n\n- Change the working directory to `/data/chats/em2p0/workspace/.`.\n\n- Change the working directory to `/data/chats/em2p0/workspace/.`.\n\n- Change the working directory to `/data/chats/em2p0/workspace/.`.\n\n- Change the working directory to `/data/chats/em2p0/workspace/react_template`.\n\n- Change the working directory to `/data/chats/em2p0/workspace/.`.",
+              "instruct_content": null,
+              "role": "user",
+              "cause_by": "metagpt.actions.add_requirement.UserRequirement",
+              "sent_from": "",
+              "send_to": [
+                "<all>"
+              ],
+              "metadata": {}
+            }
+          ]
+        }
+      },
+      "working_dir": "/data/chats/em2p0/workspace/.",
+      "__module_class_name": "metagpt.roles.di.team_leader.TeamLeader",
+      "name": "Mike"
+    },
+    "Emma": {
+      "rc": {
+        "memory": {
+          "storage": [
+            {
+              "id": "137142e78e9d40e790b083a11bd200c7",
+              "content": "# Project Summary\nThe Virtual Backlot Prototype is a web-based application designed to enhance the creative workflow for film and media professionals. It serves as a unified platform for managing themed packs while integrating AI-driven tools for advanced search, discovery, and visualization. Key features include real-time pixel-streaming previews, mood boards, and analytics dashboards, all built with modern technologies like React, JavaScript, and Tailwind CSS. The project aims to empower creatives by streamlining project management and boosting productivity through essential tools.\n\n# Project Module Description\nThe project comprises several functional modules:\n- **Unified Library View**: Displays themed packs for easy access.\n- **Search & Discovery**: Features an AI Wand for advanced searching capabilities.\n- **Pixel-Streaming Preview**: Provides 3D viewport controls for real-time previews.\n- **Snapshot & Mood-Board**: Enables users to create and manage mood boards.\n- **Download Portal**: Offers secure download options for assets.\n- **Analytics Dashboard**: Visualizes data and user interactions.\n- **Dark Theme Implementation**: Enhances the user interface with improved dark mode functionality.\n- **3D Asset Management**: Utilizes photorealistic 3D assets for enhanced visual quality.\n\n# Directory Tree\n```\ndocs/                     # Documentation files\nreact_template/           # React application source code\npublic/                   # Public assets including models and images\n```\n\n# File Description Inventory\n- **docs/**: Contains design documents and specifications for the project.\n- **react_template/**: The main directory for the React application, including components, services, pages, and configuration files.\n- **public/**: Contains public assets like images and 3D models, including newly integrated assets.\n- **react_template/src/index.css**: Updated styles for improved UX in dark mode.\n- **react_template/src/services/StorageService.js**: Manages the storage and retrieval of asset models, including new 3D assets.\n- **react_template/src/data/mockData.js**: Contains mock data, including updated thumbnail references for new models.\n- **react_template/src/components/viewer/ThreeJsRenderer.jsx**: Renders 3D models, now updated to handle new assets.\n\n# Technology Stack\n- **Frontend**: React, JavaScript, Tailwind CSS\n- **Backend**: Decision pending between Supabase and localStorage for user authentication and data storage.\n\n# Usage\nTo set up the project, follow these steps:\n1. Navigate to the `react_template` directory.\n2. Install dependencies using the package manager.\n3. Build the project to prepare for development.\n4. Run the application.\n\n\n\n\n# INSTRUCTION\n- You can search for the file path in the `/data/chats/em2p0/workspace/`\n- After modifying the project files, if this project can be previewed, then you need to reinstall dependencies, restart service and preview;\n\n\n\n- Change the working directory to `/data/chats/em2p0/workspace/.`.\n\n- Change the working directory to `/data/chats/em2p0/workspace/.`.\n\n- Change the working directory to `/data/chats/em2p0/workspace/.`.\n\n- Change the working directory to `/data/chats/em2p0/workspace/react_template`.\n\n- Change the working directory to `/data/chats/em2p0/workspace/.`.",
+              "instruct_content": null,
+              "role": "user",
+              "cause_by": "metagpt.actions.add_requirement.UserRequirement",
+              "sent_from": "",
+              "send_to": [
+                "<all>"
+              ],
+              "metadata": {}
+            }
+          ]
+        }
+      },
+      "working_dir": "/data/chats/em2p0/workspace/.",
+      "__module_class_name": "metagpt.roles.product_manager.ProductManager",
+      "name": "Emma"
+    },
+    "Bob": {
+      "rc": {
+        "memory": {
+          "storage": [
+            {
+              "id": "137142e78e9d40e790b083a11bd200c7",
+              "content": "# Project Summary\nThe Virtual Backlot Prototype is a web-based application designed to enhance the creative workflow for film and media professionals. It serves as a unified platform for managing themed packs while integrating AI-driven tools for advanced search, discovery, and visualization. Key features include real-time pixel-streaming previews, mood boards, and analytics dashboards, all built with modern technologies like React, JavaScript, and Tailwind CSS. The project aims to empower creatives by streamlining project management and boosting productivity through essential tools.\n\n# Project Module Description\nThe project comprises several functional modules:\n- **Unified Library View**: Displays themed packs for easy access.\n- **Search & Discovery**: Features an AI Wand for advanced searching capabilities.\n- **Pixel-Streaming Preview**: Provides 3D viewport controls for real-time previews.\n- **Snapshot & Mood-Board**: Enables users to create and manage mood boards.\n- **Download Portal**: Offers secure download options for assets.\n- **Analytics Dashboard**: Visualizes data and user interactions.\n- **Dark Theme Implementation**: Enhances the user interface with improved dark mode functionality.\n- **3D Asset Management**: Utilizes photorealistic 3D assets for enhanced visual quality.\n\n# Directory Tree\n```\ndocs/                     # Documentation files\nreact_template/           # React application source code\npublic/                   # Public assets including models and images\n```\n\n# File Description Inventory\n- **docs/**: Contains design documents and specifications for the project.\n- **react_template/**: The main directory for the React application, including components, services, pages, and configuration files.\n- **public/**: Contains public assets like images and 3D models, including newly integrated assets.\n- **react_template/src/index.css**: Updated styles for improved UX in dark mode.\n- **react_template/src/services/StorageService.js**: Manages the storage and retrieval of asset models, including new 3D assets.\n- **react_template/src/data/mockData.js**: Contains mock data, including updated thumbnail references for new models.\n- **react_template/src/components/viewer/ThreeJsRenderer.jsx**: Renders 3D models, now updated to handle new assets.\n\n# Technology Stack\n- **Frontend**: React, JavaScript, Tailwind CSS\n- **Backend**: Decision pending between Supabase and localStorage for user authentication and data storage.\n\n# Usage\nTo set up the project, follow these steps:\n1. Navigate to the `react_template` directory.\n2. Install dependencies using the package manager.\n3. Build the project to prepare for development.\n4. Run the application.\n\n\n\n\n# INSTRUCTION\n- You can search for the file path in the `/data/chats/em2p0/workspace/`\n- After modifying the project files, if this project can be previewed, then you need to reinstall dependencies, restart service and preview;\n\n\n\n- Change the working directory to `/data/chats/em2p0/workspace/.`.\n\n- Change the working directory to `/data/chats/em2p0/workspace/.`.\n\n- Change the working directory to `/data/chats/em2p0/workspace/.`.\n\n- Change the working directory to `/data/chats/em2p0/workspace/react_template`.\n\n- Change the working directory to `/data/chats/em2p0/workspace/.`.",
+              "instruct_content": null,
+              "role": "user",
+              "cause_by": "metagpt.actions.add_requirement.UserRequirement",
+              "sent_from": "",
+              "send_to": [
+                "<all>"
+              ],
+              "metadata": {}
+            }
+          ]
+        }
+      },
+      "working_dir": "/data/chats/em2p0/workspace/.",
+      "__module_class_name": "metagpt.roles.architect.Architect",
+      "name": "Bob"
+    },
+    "Alex": {
+      "rc": {
+        "memory": {
+          "storage": [
+            {
+              "id": "137142e78e9d40e790b083a11bd200c7",
+              "content": "# Project Summary\nThe Virtual Backlot Prototype is a web-based application designed to enhance the creative workflow for film and media professionals. It serves as a unified platform for managing themed packs while integrating AI-driven tools for advanced search, discovery, and visualization. Key features include real-time pixel-streaming previews, mood boards, and analytics dashboards, all built with modern technologies like React, JavaScript, and Tailwind CSS. The project aims to empower creatives by streamlining project management and boosting productivity through essential tools.\n\n# Project Module Description\nThe project comprises several functional modules:\n- **Unified Library View**: Displays themed packs for easy access.\n- **Search & Discovery**: Features an AI Wand for advanced searching capabilities.\n- **Pixel-Streaming Preview**: Provides 3D viewport controls for real-time previews.\n- **Snapshot & Mood-Board**: Enables users to create and manage mood boards.\n- **Download Portal**: Offers secure download options for assets.\n- **Analytics Dashboard**: Visualizes data and user interactions.\n- **Dark Theme Implementation**: Enhances the user interface with improved dark mode functionality.\n- **3D Asset Management**: Utilizes photorealistic 3D assets for enhanced visual quality.\n\n# Directory Tree\n```\ndocs/                     # Documentation files\nreact_template/           # React application source code\npublic/                   # Public assets including models and images\n```\n\n# File Description Inventory\n- **docs/**: Contains design documents and specifications for the project.\n- **react_template/**: The main directory for the React application, including components, services, pages, and configuration files.\n- **public/**: Contains public assets like images and 3D models, including newly integrated assets.\n- **react_template/src/index.css**: Updated styles for improved UX in dark mode.\n- **react_template/src/services/StorageService.js**: Manages the storage and retrieval of asset models, including new 3D assets.\n- **react_template/src/data/mockData.js**: Contains mock data, including updated thumbnail references for new models.\n- **react_template/src/components/viewer/ThreeJsRenderer.jsx**: Renders 3D models, now updated to handle new assets.\n\n# Technology Stack\n- **Frontend**: React, JavaScript, Tailwind CSS\n- **Backend**: Decision pending between Supabase and localStorage for user authentication and data storage.\n\n# Usage\nTo set up the project, follow these steps:\n1. Navigate to the `react_template` directory.\n2. Install dependencies using the package manager.\n3. Build the project to prepare for development.\n4. Run the application.\n\n\n\n\n# INSTRUCTION\n- You can search for the file path in the `/data/chats/em2p0/workspace/`\n- After modifying the project files, if this project can be previewed, then you need to reinstall dependencies, restart service and preview;\n\n\n\n- Change the working directory to `/data/chats/em2p0/workspace/.`.\n\n- Change the working directory to `/data/chats/em2p0/workspace/.`.\n\n- Change the working directory to `/data/chats/em2p0/workspace/.`.\n\n- Change the working directory to `/data/chats/em2p0/workspace/react_template`.\n\n- Change the working directory to `/data/chats/em2p0/workspace/.`.",
+              "instruct_content": null,
+              "role": "user",
+              "cause_by": "metagpt.actions.add_requirement.UserRequirement",
+              "sent_from": "",
+              "send_to": [
+                "<all>"
+              ],
+              "metadata": {}
+            }
+          ]
+        }
+      },
+      "is_first_dev_request": false,
+      "working_dir": "/data/chats/em2p0/workspace/react_template",
+      "__module_class_name": "metagpt.roles.di.frontend_engineer.FrontendEngineer",
+      "name": "Alex"
+    },
+    "David": {
+      "rc": {
+        "memory": {
+          "storage": [
+            {
+              "id": "137142e78e9d40e790b083a11bd200c7",
+              "content": "# Project Summary\nThe Virtual Backlot Prototype is a web-based application designed to enhance the creative workflow for film and media professionals. It serves as a unified platform for managing themed packs while integrating AI-driven tools for advanced search, discovery, and visualization. Key features include real-time pixel-streaming previews, mood boards, and analytics dashboards, all built with modern technologies like React, JavaScript, and Tailwind CSS. The project aims to empower creatives by streamlining project management and boosting productivity through essential tools.\n\n# Project Module Description\nThe project comprises several functional modules:\n- **Unified Library View**: Displays themed packs for easy access.\n- **Search & Discovery**: Features an AI Wand for advanced searching capabilities.\n- **Pixel-Streaming Preview**: Provides 3D viewport controls for real-time previews.\n- **Snapshot & Mood-Board**: Enables users to create and manage mood boards.\n- **Download Portal**: Offers secure download options for assets.\n- **Analytics Dashboard**: Visualizes data and user interactions.\n- **Dark Theme Implementation**: Enhances the user interface with improved dark mode functionality.\n- **3D Asset Management**: Utilizes photorealistic 3D assets for enhanced visual quality.\n\n# Directory Tree\n```\ndocs/                     # Documentation files\nreact_template/           # React application source code\npublic/                   # Public assets including models and images\n```\n\n# File Description Inventory\n- **docs/**: Contains design documents and specifications for the project.\n- **react_template/**: The main directory for the React application, including components, services, pages, and configuration files.\n- **public/**: Contains public assets like images and 3D models, including newly integrated assets.\n- **react_template/src/index.css**: Updated styles for improved UX in dark mode.\n- **react_template/src/services/StorageService.js**: Manages the storage and retrieval of asset models, including new 3D assets.\n- **react_template/src/data/mockData.js**: Contains mock data, including updated thumbnail references for new models.\n- **react_template/src/components/viewer/ThreeJsRenderer.jsx**: Renders 3D models, now updated to handle new assets.\n\n# Technology Stack\n- **Frontend**: React, JavaScript, Tailwind CSS\n- **Backend**: Decision pending between Supabase and localStorage for user authentication and data storage.\n\n# Usage\nTo set up the project, follow these steps:\n1. Navigate to the `react_template` directory.\n2. Install dependencies using the package manager.\n3. Build the project to prepare for development.\n4. Run the application.\n\n\n\n\n# INSTRUCTION\n- You can search for the file path in the `/data/chats/em2p0/workspace/`\n- After modifying the project files, if this project can be previewed, then you need to reinstall dependencies, restart service and preview;\n\n\n\n- Change the working directory to `/data/chats/em2p0/workspace/.`.\n\n- Change the working directory to `/data/chats/em2p0/workspace/.`.\n\n- Change the working directory to `/data/chats/em2p0/workspace/.`.\n\n- Change the working directory to `/data/chats/em2p0/workspace/react_template`.\n\n- Change the working directory to `/data/chats/em2p0/workspace/.`.",
+              "instruct_content": null,
+              "role": "user",
+              "cause_by": "metagpt.actions.add_requirement.UserRequirement",
+              "sent_from": "",
+              "send_to": [
+                "<all>"
+              ],
+              "metadata": {}
+            }
+          ]
+        }
+      },
+      "working_dir": "/data/chats/em2p0/workspace/.",
+      "__module_class_name": "metagpt.roles.di.data_analyst.DataAnalyst",
+      "name": "David"
+    }
+  }
+}
