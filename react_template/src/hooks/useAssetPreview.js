@@ -45,7 +45,7 @@ export function useAssetPreview(assetId) {
     if (!viewerRef.current || !asset) return null;
 
     try {
-      // Get the image data from the Three.js renderer
+      // Get the image data from the Babylon.js renderer
       const imageUrl = viewerRef.current.captureViewport();
       
       // Generate a snapshot object

@@ -9,7 +9,7 @@ For the Virtual Backlot Prototype, we'll take a component-based approach using R
 1. **Frontend Framework**: React with functional components and hooks for UI development
 2. **Styling**: Tailwind CSS for responsive, utility-first styling
 3. **State Management**: Redux for global state management with Redux Toolkit to simplify setup
-4. **3D Visualization**: Three.js for browser-based 3D rendering (simulating Pixel Streaming)
+4. **3D Visualization**: Babylon.js for browser-based 3D rendering (simulating Pixel Streaming)
 5. **UI Components**: Headless UI components for accessibility-compliant interactive elements
 6. **Authentication**: Mock OAuth/SSO implementation for the prototype
 7. **Analytics**: Chart.js for data visualization in the analytics dashboard
@@ -20,7 +20,7 @@ For the Virtual Backlot Prototype, we'll take a component-based approach using R
 
 1. **3D Asset Visualization**
    - Challenge: Browser-based 3D rendering performance
-   - Solution: Use Three.js with optimized models and progressive loading; implement level-of-detail rendering
+   - Solution: Use Babylon.js with optimized models and progressive loading; implement level-of-detail rendering
 
 2. **Mood Board Collaboration**
    - Challenge: Intuitive drag-and-drop interface with real-time updates
@@ -223,7 +223,7 @@ sequenceDiagram
     participant LibraryView
     participant AssetDetailView
     participant AssetPreview
-    participant ThreeJsRenderer
+    participant BabylonJsRenderer
     participant CameraController
     participant SnapshotManager
     participant StorageService
@@ -234,20 +234,20 @@ sequenceDiagram
     AssetDetailView->>AssetPreview: initPreview(packId)
     AssetPreview->>StorageService: getAssetPreviewData(packId)
     StorageService-->>AssetPreview: return preview data
-    AssetPreview->>ThreeJsRenderer: initialize(previewData)
-    ThreeJsRenderer->>ThreeJsRenderer: setup scene
-    ThreeJsRenderer-->>AssetPreview: viewer ready
+    AssetPreview->>BabylonJsRenderer: initialize(previewData)
+    BabylonJsRenderer->>BabylonJsRenderer: setup scene
+    BabylonJsRenderer-->>AssetPreview: viewer ready
     AssetPreview-->>AssetDetailView: preview ready
     AssetDetailView->>AnalyticsService: logAssetView(packId)
 
     User->>CameraController: Select camera preset
-    CameraController->>ThreeJsRenderer: setCameraPosition(preset)
-    ThreeJsRenderer->>ThreeJsRenderer: update camera
-    ThreeJsRenderer-->>AssetPreview: render updated view
+    CameraController->>BabylonJsRenderer: setCameraPosition(preset)
+    BabylonJsRenderer->>BabylonJsRenderer: update camera
+    BabylonJsRenderer-->>AssetPreview: render updated view
 
     User->>AssetPreview: Click "Take Snapshot"
-    AssetPreview->>ThreeJsRenderer: captureViewport()
-    ThreeJsRenderer-->>AssetPreview: return image data
+    AssetPreview->>BabylonJsRenderer: captureViewport()
+    BabylonJsRenderer-->>AssetPreview: return image data
     AssetPreview->>SnapshotManager: createSnapshot(imageData, packId)
     SnapshotManager->>StorageService: saveSnapshot(imageData)
     StorageService-->>SnapshotManager: return snapshot URL
@@ -387,7 +387,7 @@ For the prototype, we'll mock Oracle Cloud integration at these key points:
    - Mock API: `GET /api/assets/{id}` - Returns detailed information about a specific asset pack
 
 2. **3D Preview Assets**
-   - Mock API: `GET /api/assets/{id}/preview` - Returns preview data for Three.js renderer
+   - Mock API: `GET /api/assets/{id}/preview` - Returns preview data for Babylon.js renderer
    - Mock Service: Simulated streaming for 3D preview content
 
 3. **User Data Storage**
@@ -415,7 +415,7 @@ The system is designed primarily for desktop use, but will support tablet device
 
 ## Anything UNCLEAR
 
-1. **Pixel Streaming Implementation**: The prototype will use Three.js to simulate Pixel Streaming functionality, but the PRD mentions wanting to toggle between real-time and offline render profiles. Clarification is needed on the level of fidelity required for this simulation.
+1. **Pixel Streaming Implementation**: The prototype will use Babylon.js to simulate Pixel Streaming functionality, but the PRD mentions wanting to toggle between real-time and offline render profiles. Clarification is needed on the level of fidelity required for this simulation.
 
 2. **Authentication Details**: The exact SSO provider is not specified. The prototype will implement a generic OAuth flow that can be adapted to specific providers in the future.
 
