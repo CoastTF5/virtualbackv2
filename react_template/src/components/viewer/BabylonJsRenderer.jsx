@@ -130,7 +130,7 @@ const BabylonJsRenderer = forwardRef(({ assetId, renderMode = 'realtime' }, ref)
       if (fileExtension === 'fbx') {
         // Special options for FBX
         const importOptions = {
-          animationStartMode: BABYLON.AnimationStartMode.NONE,
+          animationStartMode: 0, // NONE mode
           optimizeNormals: true,
           optimizeVertices: true
         };
@@ -282,7 +282,7 @@ const BabylonJsRenderer = forwardRef(({ assetId, renderMode = 'realtime' }, ref)
               
               // Special import options for FBX files
               const importOptions = {
-                animationStartMode: BABYLON.AnimationStartMode.NONE, // We'll manually control animations
+                animationStartMode: 0, // NONE mode - We'll manually control animations
                 optimizeNormals: true,
                 optimizeVertices: true
               };
