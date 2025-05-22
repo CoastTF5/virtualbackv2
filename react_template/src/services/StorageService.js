@@ -229,7 +229,7 @@ class StorageService {
       ['pirate', 'ship', 'stylized', 'cartoon', 'fantasy'],
       'GLB/GLTF',
       true,
-      '/assets/models/catroonic_pirates_ship.glb' // actual model path
+      '/assets/models/cartoonic_pirates_ship.glb' // actual model path
     ));
 
     // Add all props
