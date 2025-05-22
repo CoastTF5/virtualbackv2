@@ -281,7 +281,7 @@ const BabylonJsRenderer = forwardRef(({ assetId, renderMode = 'realtime' }, ref)
               console.log('Loading NYC Manhattan FBX model from assets path:', modelPath);
               break;
             case 'prop-pirates-ship':
-              modelPath = '/assets/models/catroonic_pirates_ship.glb';
+              modelPath = '/assets/models/cartoonic_pirates_ship.glb';
               break;
             // Allow custom asset URL when assetId is a URL path to a model file
             // This handles direct URLs to FBX and other model formats

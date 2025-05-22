@@ -227,7 +227,7 @@ const BabylonRenderer = forwardRef(({ assetId, renderMode = 'realtime' }, ref) =
               modelPath = '/assets/models/nagoya_downtown.glb';
               break;
             case 'prop-pirates-ship':
-              modelPath = '/assets/models/catroonic_pirates_ship.glb';
+              modelPath = '/assets/models/cartoonic_pirates_ship.glb';
               break;
             default:
               modelPath = '/assets/models/bmw_i8_liberty_walk.glb';
